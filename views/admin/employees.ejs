@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><%= title %></title>
+</head>
+<body>
+    <% if(employees.length > 0) { %>
+        <a href="/admin/add-employee">Add Employee</a>
+        <h1> Employee List </h1>
+        <table>
+            <thead>
+                <tr>
+                    <th width="5%">Id</th>
+                    <th width="15%">Name</th>
+                    <th width="25%">Email</th>
+                    <th width="15%">Designation</th>
+                    <th width="15%">Created Date</th>
+                    <th width="15%">Updated Date</th>
+                    <th width="10%">Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <% for (let employee of employees) { %>
+                    <% let createdAt = employee['created_at'].getDate() + "-" + employee['created_at'].getMonth()+1 + "-" + employee['created_at'].getFullYear(); %>
+                    <% let isUpdatedAt = (employee['updated_at']) ? employee['updated_at'] : null; %>
+                    <% let updatedAt = null; %>
+                    <% if(isUpdatedAt) { %>
+                        <%  updatedAt = employee['updated_at'].getDate() + "-" + employee['updated_at'].getMonth()+1 + "-" + employee['updated_at'].getFullYear(); %>
+                    <% } %>
+                    <% if(employee['updated_at'] !== null) {
+
+                    } %>
+                    <tr>
+                        <td align="center"><%= employee['id'] %></td>
+                        <td align="center"><%= employee['name'] %></td>
+                        <td align="center"><%= employee['email'] %></td>
+                        <td align="center"><%= employee['designation'] %></td>
+                        <td align="center"><%= createdAt %></td>
+                        <td align="center"><%= updatedAt %></td>
+                        <td align="center"><a href="/admin/edit-employee/<%= employee['id'] %>?edit=true">Edit</a> | <a href="/admin/delete-employee/<%= employee['id'] %>">Delete</a></td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    <% } else { %>
+        <h3>No Employees Yet.</h3>
+    <% } %>
+</body>
+</html>
